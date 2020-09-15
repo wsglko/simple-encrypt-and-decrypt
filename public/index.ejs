@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/icons/favicon-16x16.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.js" integrity="sha512-t4HzsbLJw+4jV+nmiiIsz/puioH2aKIjuI1ho1NIqJAJ2GNVLPTy51IklYefYdrkRE583KEzTcgmO5Wb6jVgYw==" crossorigin="anonymous"></script>
+    <title>Welcome</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <a href="/logout">Logout</a>
+    <h1>Welcome to Simple Encrypt Decrypt</h1>
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Remark</th>
+        </tr>
+        <tbody id="details">
+
+        </tbody>
+    </table>
+<script>
+    getData();
+
+    async function getData(){
+        const response = await fetch('/fetchData');
+        const data = await response.json();
+            console.log(data);
+        const table = document.getElementById('details');
+        table.innerHTML = '';
+        for(item of data) {
+            const row = '<tr><td>'+CryptoJS.AES.decrypt(item.title,"<%=key%>").toString(CryptoJS.enc.Utf8)+'</td><td>'+CryptoJS.AES.decrypt(item.username,"<%=key%>").toString(CryptoJS.enc.Utf8)+'</td><td>'+CryptoJS.AES.decrypt(item.key,"<%=key%>").toString(CryptoJS.enc.Utf8)+'</td><td>'+CryptoJS.AES.decrypt(item.remark,"<%=key%>").toString(CryptoJS.enc.Utf8)+'</td></tr>';
+        table.innerHTML += row;
+        }
+    }
+</script>
+</body>
+</html>
