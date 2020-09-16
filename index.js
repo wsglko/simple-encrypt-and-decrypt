@@ -1,8 +1,8 @@
-require('dotenv').config();
+//require('dotenv').config();
 const express = require('express');
 const app = express();
 Port = process.env.PORT || 3000;
-app.listen(Port,()=>console.log('App is runnign on Port No.: '+Port));
+app.listen(Port,()=>console.log(`App is runnign on Port No.: ${Port}`));
 const session = require('express-session');
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
